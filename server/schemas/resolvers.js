@@ -37,11 +37,12 @@ const resolvers = {
         },
         // save a book to favorite list
         saveBook: async (parent, { newBook }, context) => {
+            console.log(context.user);
             if (context.user) {
                 const updatedUser = await User.findByIdAndUpdate(
                     { _id: context.user._id },
                     { $push: { savedBooks: newBook } },
-                    { new: true, runValidators: true }
+                    { new: true }
                 );
                 return updatedUser;
             }
